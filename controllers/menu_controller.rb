@@ -15,7 +15,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - View entry number n"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     # retrieve user input from the command line with gets
@@ -41,6 +42,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      view_by_number
+      main_menu
+    when 6
       puts "Good-bye!"
     # terminate program using exit(0)
       exit(0)
@@ -54,19 +59,29 @@ class MenuController
 
   # stub for each methods called in menu
   def view_all_entries
+     # iterate thru all entries using each
+    address_book.entries.each do |entry|
+      system "clear"
+      puts entry.to_s
+      # call entry_submenu to display selected submenu
+      entry_submenu(entry)
+    end
+
+    system "clear"
+    puts "End of entries"
   end
 
   def create_entry
   # clear the screen for display entry prompts
-  system "clear"
-  puts "New AddressBloc Entry"
+    system "clear"
+    puts "New AddressBloc Entry"
   # use print to prompt user for each Entry attribute
-  print "Name: "
-  name = gets.chomp
-  print "Phone number: "
-  phone = gets.chomp
-  print "Email: "
-  email = gets.chomp
+    print "Name: "
+    name = gets.chomp
+    print "Phone number: "
+    phone = gets.chomp
+    print "Email: "
+    email = gets.chomp
 
   # add new etnry to the address book using add entry
   address_book.add_entry(name, phone, email)
@@ -92,16 +107,31 @@ class MenuController
   def read_csv
   end
 
+  def view_by_number
+    # ask for and get desired number
+    print "Enter desired entry number: "
+    selection = gets.chomp.to_i
+
+    if @address_book.entries[selection-1] != nil
+      # if the index equal to selection-1 exists (index starts at zero)
+      # display entry name, phone, email and return to main menu
+      puts @address_book.entries[selection-1]
+      main_menu
+      # else tell user it wasn't a valid entry number and return to main menu
+    else
+      puts "#{selection} is not a valid entry number.\n"
+      main_menu
+    end
+  end
+
   def entry_submenu(entry)
     puts "n - next entry"
     puts "d - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
-
     selection = gets.chomp
 
     case selection
-
       when "n"
       when "d"
       when "e"
@@ -115,4 +145,3 @@ class MenuController
      end
   end
 end
-
