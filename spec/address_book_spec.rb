@@ -97,6 +97,42 @@ require_relative '../models/address_book'
       end
    end
 
+   # add test for another csv file with 3 rows  entries_2.csv
+   describe "#import_from_entries_2.csv" do
+      it "imports the correct number of entries" do
+        # call the method on the book object, pass the string entries.csv
+        book.import_from_csv("entries_2.csv")
+
+      # Check the size of the entries in AddressBook
+        expect(book_size).to eq 3
+      end
+
+      #access the first entry in the array of entries, ruby arrays start with zero
+      it "imports the 1st entry" do
+        book.import_from_csv("entries.csv")
+        # check first entry
+        entry_one = book.entries[0]
+        # add check_entry to check parts of an entry
+        check_entry(entry_one, "Bill","555-555-4854", "bill@blocmail.com")
+      end
+
+      it "imports the 2nd entry" do
+         book.import_from_csv("entries.csv")
+         # check second entry
+       entry_one = book.entries[1]
+          # add check_entry to check parts of an entry
+         check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
+       end
+
+      it "imports the 3rd entry" do
+         book.import_from_csv("entries.csv")
+         # check third  entry
+         entry_one = book.entries[2]
+         # add check_entry to check parts of an entry
+         check_entry(entry_three, "Joe","555-555-3660", "joe@blocmail.com")
+      end
+   end
+
    describe "#remove_entry" do
       it "removes only one entry from the address book" do
         book.remove_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
