@@ -84,4 +84,18 @@
        # if no match found...return nil
      return nil
    end
+
+   def iterative_search(name)
+     # search AddressBook for a specific entry by name
+     # use iterative searching for comparison
+     i = 0
+     while i < (entries.length )
+       if entries[i].name == name
+         return entries[i]
+       else
+         i += 1
+       end
+     end
+     return nil
+   end
 end
