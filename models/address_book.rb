@@ -54,6 +54,10 @@
      entries.delete_at(delete_index)
    end
 
+   def zap_all
+     @entries.clear
+   end
+
    def binary_search(name)
      # search AddressBook for a specific entry by name
      # use var lower to save the index of the leftmost item in array

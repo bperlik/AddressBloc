@@ -105,6 +105,16 @@ require_relative '../models/address_book'
       end
     end
 
+   describe "#zap_all" do
+     it "removes all entries from list" do
+       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       book.zap_all
+       expect(book.entries.size).to eq 0
+     end
+   end
+
    # Test the binary_search method
    describe "#binary_search" do
      it "searches AddressBook for a non-existent entry" do

@@ -15,7 +15,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - Delete all entries"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     # retrieve user input from the command line with gets
@@ -41,6 +42,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      zap_all
+      main_menu
+    when 6
       puts "Good-bye!"
     # terminate program using exit(0)
       exit(0)
@@ -52,8 +57,17 @@ class MenuController
     end
   end
 
-  # stub for each methods called in menu
   def view_all_entries
+    # iterate thru all entries
+    address_book.entries.each do |entry|
+      system "clear"
+      puts entry.to_s
+      #display submenu for each entry, submenu is at bottom of menu controller
+      entry_submenu(entry)
+    end
+
+    system "clear"
+    puts "End of entries"
   end
 
   def create_entry
@@ -96,6 +110,12 @@ class MenuController
 
     system "clear"
     puts "End of entries"
+  end
+
+  def zap_all
+    #assignment 9 menu option to delete all entries.  zap_all
+    address_book.entries.clear
+    puts "All entries deleted"
   end
 
   def read_csv
@@ -207,5 +227,5 @@ class MenuController
         search_submenu(entry)
       end
   end
-end
+
 
